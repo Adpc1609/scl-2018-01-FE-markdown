@@ -1,0 +1,32 @@
+{
+  "name": "scl-2018-01-fe-markdown",
+  "version": "1.0.0",
+  "description": "Extraer link de archivos markdowm",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adpc1609/scl-2018-01-FE-markdown.git"
+  },
+  "keywords": [
+    "extraer",
+    "markdowm",
+    "laboratoria"
+  ],
+  "author": "Adriana Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adpc1609/scl-2018-01-FE-markdown/issues"
+  },
+  "homepage": "https://github.com/Adpc1609/scl-2018-01-FE-markdown#readme",
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "jest": "^23.5.0"
+  }
+}
