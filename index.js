@@ -3,9 +3,9 @@ const argv = require('./config/yargs').argv;
 // Llamada a mi libreria
 const myMdLink = require('./lib/md-links');
 var path = require('path');
+let fs = require('fs');
 
 let urlFile = argv._[0];
-
 console.log(argv, argv.validate);
     /** TODO
     * Se comprueba que la ruta no sea relativa, en caso de serlo
@@ -29,7 +29,13 @@ console.log(argv, argv.validate);
             console.log('sin argumentos');
         }
 
-
+        fs.readFile('README.md', 'utf-8', (err, data) => {
+            if(err) {
+              console.log('error: ', err);
+            } else {
+              console.log(data);
+            }
+          });
     console.log('llegue al final');
     
     
