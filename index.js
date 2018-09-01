@@ -1,21 +1,23 @@
+#!/usr/bin/env node
 const argv = require('./config/yargs').argv;
-//const colors = require('colors');
-// Llamada a mi libreria
-const myMdLink = require('./lib/md-links');
+const colors = require('colors');
 var path = require('path');
 let fs = require('fs');
 const Marked = require('marked');
+const fetch = require('node-fetch');
+var request = require('request');
+
 
 
 let urlFile = argv._[0];
-console.log(argv, argv.validate);
+//console.log(argv, argv.validate);
 /** TODO
 * Se comprueba que la ruta no sea relativa, en caso de serlo
 * se setea una ruta, basada en la ubicacion del proyecto 
 **/
 if (!path.isAbsolute(urlFile)) {
   urlFile = process.cwd() + '/' + urlFile;
-  console.log('relativa', urlFile);
+  //console.log('relativa', urlFile);
 }
 
 
@@ -28,23 +30,49 @@ if (path.extname(urlFile) !== '.md')
 mdLinks(urlFile, argv);
 
 function mdLinks(urlFile, argv) {
-
   fs.readFile(urlFile, 'utf-8', (err, data) => {
     if (err) {
       console.log('error: ', err);
     } else {
-      console.log(data);
+      myGeneralResponse = {};
+      //console.log(data);
       let response = markdownLinkExtractor(data);
-      console.log(response);
+      //console.log(response);
+
+      tempArray = data.split('\n');
+      console.log(tempArray);
+      response.forEach((item1,index1) => {
+            console.log('href=>',item1.href,'item1=>',tempArray.indexOf(item1.href));
+      });
+      return;
+      let miLinks = links;
+      let linksArray = [];
+miLinks.forEach( function(element) {
+   
+    linksArray.push(fetch(element.href))
+    });
+
+
+    Promise.all(linksArray).then(function(response) {
+      console.log('myresponse',response,response[1].status);
+      console.log('---------------------------------------------'.green);
+      for (let index = 0; index < response.length; index++) {
+        console.log(" link: " + response[index].url.green);
+        console.log('response.status =', response[index].status);
+        console.log('response.statusText =', response[index].statusText);
+      } 
+
+      }).catch(function(err){
+      });
     }
   });
 
 
   if (argv.validate || argv.stats) {
-    console.log('argumentos validate');
+    //console.log('argumentos validate');
 
   } else {
-    console.log('sin argumentos');
+    //console.log('sin argumentos');
   }
 
 };
@@ -54,29 +82,24 @@ function markdownLinkExtractor(markdown) {
   const links = [];
 
   const renderer = new Marked.Renderer();
-
-  const linkWithImageSizeSupport = /^!?\[((?:\[[^\[\]]*\]|\\[\[\]]?|`[^`]*`|[^\[\]\\])*?)\]\(\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f()\\]*\)|[^\s\x00-\x1f()\\])*?(?:\s+=(?:[\w%]+)?x(?:[\w%]+)?)?)(?:\s+("(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)))?\s*\)/;
-
-  Marked.InlineLexer.rules.normal.link = linkWithImageSizeSupport;
-  Marked.InlineLexer.rules.gfm.link = linkWithImageSizeSupport;
-  Marked.InlineLexer.rules.breaks.link = linkWithImageSizeSupport;
-
   renderer.link = function (href, title, text) {
     links.push({
       href: href,
-      text: text,
       title: title,
+      text: text
     });
   };
-  renderer.image = function (href, title, text) {
-    href = href.replace(/ =\d*%?x\d*%?$/, '');
-    links.push({
-      href: href,
-      text: text,
-      title: title,
-    });
-  };
-  Marked(markdown, { renderer: renderer });
-
+  let myTempMarked = Marked(markdown, { renderer: renderer })
+  
+  
+  
+  //myArrayMarked.forEach( (item, index) =>{
+  //  links.forEach((item1,index1) => {
+    //    console.log('item1=>',myArrayMarked.indexOf(item1.href));
+  //  });
+  //} );
   return links;
-};
+  
+}
+
+
