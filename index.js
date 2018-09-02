@@ -4,9 +4,7 @@ const colors = require('colors');
 var path = require('path');
 let fs = require('fs');
 const Marked = require('marked');
-const fetch = require('node-fetch');
-var request = require('request');
-
+const fetch = require('node-fetch')
 
 
 let urlFile = argv._[0];
@@ -24,8 +22,10 @@ if (!path.isAbsolute(urlFile)) {
 /** TODO
 * Se valida la extension del archivo, en caso de no tener se retorna y no se sigue el programa 
 **/
-if (path.extname(urlFile) !== '.md')
+if (path.extname(urlFile) !== '.md'){
+  console.log('Extension de archivo no Valida'.red);
   return;
+}
 
 mdLinks(urlFile, argv);
 
@@ -35,39 +35,54 @@ function mdLinks(urlFile, argv) {
       console.log('error: ', err);
     } else {
       myGeneralResponse = [];
-      //console.log(data);
       let response = markdownLinkExtractor(data);
-      //console.log(response);
-      console.log(response);
       tempArray = data.split('\n');
       
       tempArray.forEach((item,index)=>{
         response.forEach((item1,index1) => {
 
-          //let isMatch = new RegExp(item1.href, 'i').test(item); 
-          //console.log(isMatch);   
-          if(item.includes(item1.href)){
+          if(item.includes(item1.href)){ 
                 buildTempData = {};
-                console.log('href=>',item1.href,'index=>',index+1);
+                buildTempData.urlFile = urlFile;
                 buildTempData.href = item1.href
                 buildTempData.line = index + 1;
                 buildTempData.text = item1.text; 
                 myGeneralResponse.push(buildTempData);
                 return;
               }
-              
         });
       });
-      return;
-      let miLinks = links;
-      let linksArray = [];
-miLinks.forEach( function(element) {
-   
-    linksArray.push(fetch(element.href))
+/*--------COMANDOS QUE SE DEBEN EJECUTAR EN LA CONSOLA------*/
+      if (argv.validate || argv.stats) {
+       validateLink(myGeneralResponse);
+    
+      } else {
+        console.log('sin argumentos');
+        showData(myGeneralResponse);
+      }    
+      
+      
+    }
+  });
+};
+
+function showData( objectParam){
+  objectParam.forEach((item,index)=>{
+    console.log(item.urlFile + ' ' + item.line + ' ' + item.href  + ' ' + item.text )
+  });
+}
+
+/*--------FUNCION QUE VALIDA EL STATUS DE LOS HTTP DENTRO DEL MD------*/
+
+function validateLink(objectParam){
+  
+    var urlForValidate=[];
+    objectParam.forEach( (element) => {
+      urlForValidate.push(fetch(element.href));
     });
 
 
-    Promise.all(linksArray).then(function(response) {
+    Promise.all(urlForValidate).then(function(response) {
       console.log('myresponse',response,response[1].status);
       console.log('---------------------------------------------'.green);
       for (let index = 0; index < response.length; index++) {
@@ -78,20 +93,8 @@ miLinks.forEach( function(element) {
 
       }).catch(function(err){
       });
-    }
-  });
-
-
-  if (argv.validate || argv.stats) {
-    //console.log('argumentos validate');
-
-  } else {
-    //console.log('sin argumentos');
-  }
-
-};
-
-//funcion que extrae los links del archivo.md
+}
+/*--------FUNCION QUE EXTRAE LOS LINKSD DEL ARCHIVO MD------*/
 function markdownLinkExtractor(markdown) {
   const links = [];
 
@@ -125,5 +128,3 @@ function markdownLinkExtractor(markdown) {
   return links;
   
 }
-
-
