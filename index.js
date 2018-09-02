@@ -34,15 +34,29 @@ function mdLinks(urlFile, argv) {
     if (err) {
       console.log('error: ', err);
     } else {
-      myGeneralResponse = {};
+      myGeneralResponse = [];
       //console.log(data);
       let response = markdownLinkExtractor(data);
       //console.log(response);
-
+      console.log(response);
       tempArray = data.split('\n');
-      console.log(tempArray);
-      response.forEach((item1,index1) => {
-            console.log('href=>',item1.href,'item1=>',tempArray.indexOf(item1.href));
+      
+      tempArray.forEach((item,index)=>{
+        response.forEach((item1,index1) => {
+
+          //let isMatch = new RegExp(item1.href, 'i').test(item); 
+          //console.log(isMatch);   
+          if(item.includes(item1.href)){
+                buildTempData = {};
+                console.log('href=>',item1.href,'index=>',index+1);
+                buildTempData.href = item1.href
+                buildTempData.line = index + 1;
+                buildTempData.text = item1.text; 
+                myGeneralResponse.push(buildTempData);
+                return;
+              }
+              
+        });
       });
       return;
       let miLinks = links;
@@ -82,22 +96,32 @@ function markdownLinkExtractor(markdown) {
   const links = [];
 
   const renderer = new Marked.Renderer();
-  renderer.link = function (href, title, text) {
+
+  // Taken from https://github.com/markedjs/marked/issues/1279
+  const linkWithImageSizeSupport = /^!?\[((?:\[[^\[\]]*\]|\\[\[\]]?|`[^`]*`|[^\[\]\\])*?)\]\(\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f()\\]*\)|[^\s\x00-\x1f()\\])*?(?:\s+=(?:[\w%]+)?x(?:[\w%]+)?)?)(?:\s+("(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)))?\s*\)/;
+
+  Marked.InlineLexer.rules.normal.link = linkWithImageSizeSupport;
+  Marked.InlineLexer.rules.gfm.link = linkWithImageSizeSupport;
+  Marked.InlineLexer.rules.breaks.link = linkWithImageSizeSupport;
+
+  renderer.link = function(href, title, text) {
     links.push({
       href: href,
+      text: text,
       title: title,
-      text: text
     });
   };
-  let myTempMarked = Marked(markdown, { renderer: renderer })
-  
-  
-  
-  //myArrayMarked.forEach( (item, index) =>{
-  //  links.forEach((item1,index1) => {
-    //    console.log('item1=>',myArrayMarked.indexOf(item1.href));
-  //  });
-  //} );
+  renderer.image = function(href, title, text) {
+      // Remove image size at the end, e.g. ' =20%x50'
+      href = href.replace(/ =\d*%?x\d*%?$/, '');
+      links.push({
+        href: href,
+        text: text,
+        title: title,
+      });
+  };
+  Marked(markdown, {renderer: renderer});
+
   return links;
   
 }
