@@ -53,9 +53,10 @@ function mdLinks(urlFile, argv) {
         });
       });
 /*--------COMANDOS QUE SE DEBEN EJECUTAR EN LA CONSOLA------*/
-      if (argv.validate || argv.stats) {
-       validateLink(myGeneralResponse);
-    
+      if (argv.validate ) {
+       validateLink(myGeneralResponse, flatStats=0);
+      } else if(argv.stats){
+       validateLink(myGeneralResponse, flatStats=1);
       } else {
         console.log('sin argumentos');
         showData(myGeneralResponse);
@@ -66,7 +67,7 @@ function mdLinks(urlFile, argv) {
   });
 };
 
-function showData( objectParam){
+function showData(objectParam){
   objectParam.forEach((item,index)=>{
     console.log(item.urlFile + ' ' + item.line + ' ' + item.href  + ' ' + item.text )
   });
@@ -74,22 +75,31 @@ function showData( objectParam){
 
 /*--------FUNCION QUE VALIDA EL STATUS DE LOS HTTP DENTRO DEL MD------*/
 
-function validateLink(objectParam){
-  
-    var urlForValidate=[];
+function validateLink(objectParam, flatStats){
+    let urlForValidate=[];
     objectParam.forEach( (element) => {
       urlForValidate.push(fetch(element.href));
     });
 
 
     Promise.all(urlForValidate).then(function(response) {
-      console.log('myresponse',response,response[1].status);
+        const results = [];
+        let counter = 0;
+      //console.log('myresponse',response,response[1].status);
       console.log('---------------------------------------------'.green);
       for (let index = 0; index < response.length; index++) {
-        console.log(" link: " + response[index].url.green);
-        console.log('response.status =', response[index].status);
-        console.log('response.statusText =', response[index].statusText);
-      } 
+        if(flatStats===1 && response[index].statusText === 'OK'){
+          counter++;
+        }else{
+          console.log(" link: " + response[index].url.green);
+          console.log('response.status =', response[index].status);
+          console.log('response.statusText =', response[index].statusText);
+          
+        }
+        
+      }
+      if(flatStats==1)
+        console.log('total de Ok',counter); 
 
       }).catch(function(err){
       });
