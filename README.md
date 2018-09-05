@@ -1,4 +1,4 @@
-#MARKDOWM LINKS LIBRARY
+# MARKDOWM LINKS LIBRARY
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
@@ -19,9 +19,9 @@ algunas estadísticas.
 
 Es una libreria creada con NodeJS, la cual recibe la ruta de un archivo. Se extraen los links de este archivo se indican la linea en donde esta la url, el texto y el link. Ademas a traves de una linea de comandos como --validate te comprueba el status de esta url, stats el numero de links tengas uns status 200.
 
-## Instrucciones de instalación.
+# Instrucciones de instalación.
 
-# Pre-requisitos 
+## Pre-requisitos 
 
 Debe instalarse previamente de forma global -g las librerias utilizadas para este proyecto 
 
