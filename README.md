@@ -1,4 +1,4 @@
-######MARKDOWM LINKS LIBRARY
+#MARKDOWM LINKS LIBRARY
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
@@ -21,7 +21,7 @@ Es una libreria creada con NodeJS, la cual recibe la ruta de un archivo. Se extr
 
 ## Instrucciones de instalación.
 
-# Prerequisitos 
+# Pre-requisitos 
 
 Debe instalarse previamente de forma global -g las librerias utilizadas para este proyecto 
 
@@ -34,12 +34,26 @@ $npm install colors -g
 ```
 ## Instalacion 
 
-Para instalar esta libreria se debe instalar esta instruccio  
+Para instalar esta libreria se debe ejecutar la siguiente Linea de Intrucciones 
 
 ```
-$ npm install 
+$npm install adpc1609/md-links 
 ``` 
+Luego se debe ejecutar el comando 
 
+```
+$md-links <Nombre-de-tu-archivo.md>
+```
+para comprobar el estado de la url  de los links de tu archivo se debe ejecutar el siguiente comando 
+
+```
+$md-links <Nombre-de-tu-archivo.md> --validate
+```
+puedes visualizar la cantidad de links que resultaron con un status de conexion OK, con el siguiente comando
+
+```
+$md-links <Nombre-de-tu-archivo.md> --stats
+```
 
 ## Versiones de la librería.
 
