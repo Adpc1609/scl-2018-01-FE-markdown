@@ -60,9 +60,9 @@ $md-links <Nombre-de-tu-archivo.md> --stats
 Esta libreria esta en su version 1.0.0 
 
 ## Documentación de la Librería :book:
-[Leer Archivo con Readfile de NodeJS](https://stackoverflow.com/questions/10058814/get-data-from-fs-readfile) 
 
-[Utilidad de lineas de Comando con NodeJS](http://code.ezakto.com/node/crear-utilidad-linea-comandos-todo-list.html),_process.cwd()_ lo utilizamos para devolver la ruta completa hacia el directorio en el cual el script está siendo ejecutado.
+Leer Archivo con Readfile de NodeJS [https://stackoverflow.com/questions/10058814/get-data-from-fs-readfile]
+[Utilidad de lineas de Comando con NodeJS](http://code.ezakto.com/node/crear-utilidad-linea-comandos-todo-list.html), _process.cwd()_ lo utilizamos para devolver la ruta completa hacia el directorio en el cual el script está siendo ejecutado.
 
 [Ruta relativa y Absoluta](https://www.coffeecup.com/help/articles/absolute-vs-relative-pathslinks/)
 
