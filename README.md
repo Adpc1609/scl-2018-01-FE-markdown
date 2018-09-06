@@ -70,17 +70,30 @@ http://code.ezakto.com/node/crear-utilidad-linea-comandos-todo-list.html
 _process.cwd()_ lo utilizamos para devolver la ruta completa hacia el directorio en el cual el script está siendo ejecutado.
 
 **Ruta relativa y Absoluta**
+
 https://www.coffeecup.com/help/articles/absolute-vs-relative-pathslinks/
 
 
 **Libreria Yargs/para la configuracion de los Argumentos**
+
 http://blog.lungosoft.com/yargs-en-node-pasar-parmetros-en-aplicaciones-javascript-desde-consola  
 
 Yargs es un módulo útil para crear scripts que puedan ser adaptables de acuerdo a las necesidades de un usuario, nos ayuda a gestionar los parámetros de una manera fácil y sencilla.
 
  
 **Promesas**
+
 https://www.todojs.com/api-fetch-el-nuevo-estandar-que-permite-hacer-llamadas-http/ Utilizamos esta informacion para hacer las peticiones de los links extraidos de un _archivo.md_ y resolver el status.
+
+## Autores
+
+Proyecto para Laboratoria -_Bootcamp SCL-2018_
+creado por **ADRIANA PEREZ** /Estudiante Front-end Developer
+
+## Licencia
+ISC
+
+
 
 
 
