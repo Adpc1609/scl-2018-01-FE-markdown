@@ -88,9 +88,12 @@ https://www.todojs.com/api-fetch-el-nuevo-estandar-que-permite-hacer-llamadas-ht
 ## Autores
 
 Proyecto para Laboratoria -_Bootcamp SCL-2018_
-creado por **ADRIANA PEREZ** /Estudiante Front-end Developer
+
+creado por **ADRIANA PEREZ** 
+Estudiante Front-end Developer
 
 ## Licencia
+
 ISC
 
 
