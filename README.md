@@ -21,7 +21,7 @@ Es una libreria creada con NodeJS, la cual recibe la ruta de un archivo. Se extr
 
 # Instrucciones de instalación.
 
-## Pre-requisitos 
+## Pre-requisitos :ballot_box_with_check:
 
 Debe instalarse previamente de forma global -g las librerias utilizadas para este proyecto 
 
@@ -55,9 +55,23 @@ puedes visualizar la cantidad de links que resultaron con un status de conexion 
 $md-links <Nombre-de-tu-archivo.md> --stats
 ```
 
-## Versiones de la librería.
+## Versiones de la librería :construction:
 
-## Documentación de la Librería (Features, link de Demo, test, etc...).
+Esta libreria esta en su version 1.0.0 
+
+## Documentación de la Librería :book:
+[Leer Archivo con Readfile de NodeJS](https://stackoverflow.com/questions/10058814/get-data-from-fs-readfile) 
+
+[Utilidad de lineas de Comando con NodeJS](http://code.ezakto.com/node/crear-utilidad-linea-comandos-todo-list.html),_process.cwd()_ lo utilizamos para devolver la ruta completa hacia el directorio en el cual el script está siendo ejecutado.
+
+[Ruta relativa y Absoluta](https://www.coffeecup.com/help/articles/absolute-vs-relative-pathslinks/)
+
+
+[Libreria Yargs/para la configuracion de los Argumentos](http://blog.lungosoft.com/yargs-en-node-pasar-parmetros-en-aplicaciones-javascript-desde-consola)  Yargs es un módulo útil para crear scripts que puedan ser adaptables de acuerdo a las necesidades de un usuario, nos ayuda a gestionar los parámetros de una manera fácil y sencilla.
+
+ 
+[Promesas](https://www.todojs.com/api-fetch-el-nuevo-estandar-que-permite-hacer-llamadas-http/) Utilizamos esta informacion para hacer las peticiones de los links extraidos de un _archivo.md_ y resolver el status.
+
 
 
 
